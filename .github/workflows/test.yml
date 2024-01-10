@@ -1,10 +1,11 @@
 name: Tests
 
-on: 
+on:
   - push
 
 jobs:
-  job_name:
+
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,16 +18,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m install --upgrade pip
+          python -m pip install --upgrade pip
           pip install pytest-playwright
-      
-      - name: Ensure browsers installed
-        run: python -m playwright install --with-deps
+
+      - name: Ensure browsers are installed
+        run: python -m playwright install chromium --with-deps
 
       - name: Run tests
         run: |
-          cd cubit
+          cd cubeit
           python -m http.server 8000 &
           cd ..
           pytest -v
-      
